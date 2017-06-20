@@ -1,0 +1,111 @@
+﻿<views:NavigationPage
+    x:Class="Company.Welcome.Views.NewVisitor.NewVisitorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Company.Welcome.Views.NewVisitor"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:Company.Welcome.Views"
+    mc:Ignorable="d">
+
+    <views:NavigationPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Style x:Name="NewVisitorTextBoxStyle" TargetType="TextBox">
+                        <Setter Property="FontSize" Value="24"/>
+                        <Setter Property="Width" Value="325"/>
+                        <Setter Property="Margin" Value="5"/>
+                    </Style>
+                    <Style x:Name="NewVisitorTextBlockStyle" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="24"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="5"/>
+                    </Style>
+                    <Style x:Name="PageTitle" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="28"/>
+                        <Setter Property="Margin" Value="5,10,0,10"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </views:NavigationPage.Resources>
+
+    <RelativePanel VerticalAlignment="Stretch" 
+                   HorizontalAlignment="Stretch">
+        <TextBlock Text="Please register to the guest book:" 
+                       x:Name="PageTitleTextBlock"
+                       Style="{StaticResource PageTitle}"
+                       RelativePanel.AlignTopWithPanel="True"
+                       RelativePanel.AlignLeftWithPanel="True"/>
+        <Grid x:Name="FormGrid"
+                  Margin="0"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.Below="PageTitleTextBlock">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Text="Full Name :" Style="{StaticResource NewVisitorTextBlockStyle}"/>
+                <TextBox Text="{Binding FullName, Mode=TwoWay}" Style="{StaticResource NewVisitorTextBoxStyle}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Company :" Style="{StaticResource NewVisitorTextBlockStyle}"/>
+                <TextBox Text="{Binding Company, Mode=TwoWay}" Style="{StaticResource NewVisitorTextBoxStyle}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock Text="Arrival :" Style="{StaticResource NewVisitorTextBlockStyle}"/>
+                <TimePicker Time="{Binding Arrival, Mode=TwoWay}" 
+                                Width="325"
+                                FontSize="24"
+                                Margin="5"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock Text="Contact :" Style="{StaticResource NewVisitorTextBlockStyle}"/>
+                <TextBox Text="{Binding TekContact, Mode=TwoWay}" Style="{StaticResource NewVisitorTextBoxStyle}"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Vertical"
+                    Margin="165,0,0,0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    RelativePanel.Below="FormGrid">
+            <TextBlock Text="Signature :"
+                   Foreground="Black"
+                   FontSize="24"/>
+            <Grid>
+                <Grid Grid.Row="0" 
+                      Width="327"
+                      Height="102">
+                    <Rectangle Fill="Black"/>
+                </Grid>
+                <Grid Grid.Row="0" 
+                          x:Name="ImageFrame"
+                          Width="325"
+                          Height="100">
+                    <Rectangle Fill="White"/>
+                </Grid>
+                <InkCanvas Grid.Row="0" 
+                           x:Name="SignatureInkCanvas"
+                           Height="100"
+                           Width="325"/>
+            </Grid>
+            <Button Click="ResetSignatureButton_OnClick">
+                <TextBlock Text="Reset" Foreground="Black" FontSize="12"/>
+            </Button>
+        </StackPanel>
+    </RelativePanel>
+    <Page.BottomAppBar>
+        <CommandBar Height="60" 
+                    VerticalAlignment="Bottom"
+                    ClosedDisplayMode="Compact">
+            <AppBarButton Icon="Save" Label="Save" Click="SaveButton_OnClick"></AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
+</views:NavigationPage>
+

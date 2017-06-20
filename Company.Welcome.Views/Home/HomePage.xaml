@@ -1,0 +1,211 @@
+﻿<views:NavigationPage
+    x:Class="Company.Welcome.Views.Home.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Company.Welcome.Views.Home"
+    xmlns:entities="using:Company.Welcome.Entities"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:Company.Welcome.Views"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:converters="using:Company.Welcome.Views.Converters"
+    xmlns:userControls="using:Company.Welcome.Views.UserControls"
+    xmlns:guestVisitor="using:Company.Welcome.Entities.GuestVisitor"
+    Background="Transparent"
+    mc:Ignorable="d">
+
+    <views:NavigationPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:TimeExtractorConverter x:Key="TimeExtractorConverter" />
+                    <DataTemplate x:Key="FavoritesItemsTemplate"
+                                  x:DataType="guestVisitor:Visitor">
+                        <Grid HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" MinWidth="150"/>
+                                <ColumnDefinition Width="*" MinWidth="150" />
+                                <ColumnDefinition Width="*" MinWidth="150" />
+                                <ColumnDefinition Width="*" MinWidth="150" />
+                                <ColumnDefinition Width="*" MinWidth="150" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Name}" Margin="10" FontSize="24" Style="{StaticResource DefaultTextBlockStyle}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Company}" Margin="10" FontSize="24" Style="{StaticResource DefaultTextBlockStyle}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Arrival, Converter={StaticResource TimeExtractorConverter}}" Margin="10" FontSize="24" Style="{StaticResource DefaultTextBlockStyle}"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Departure, Converter={StaticResource TimeExtractorConverter}}" Margin="10" FontSize="24" Style="{StaticResource DefaultTextBlockStyle}"/>
+                            <TextBlock Grid.Column="4" Text="{Binding TekContact}" Margin="10" FontSize="24" Style="{StaticResource DefaultTextBlockStyle}"/>
+                            <Image Grid.Column="5"
+                                   Width="150"
+                                   Stretch="Uniform"
+                                   Source="{Binding SignatureImage}"/>
+                        </Grid>
+                    </DataTemplate>
+                    <Style x:Key="RichTextBlockPrintDefaultSyle" TargetType="RichTextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="26"/>
+                        <Setter Property="FontFamily" Value="Segoe UI"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Margin" Value="25"/>
+                    </Style>
+                    <Style x:Key="RichTextBlockOverflowPrintDefaultSyle" TargetType="RichTextBlockOverflow">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="25"/>
+                    </Style>
+                    <converters:GridViewSelectedItemSelectionChangedConverter x:Key="GridViewSelectionChangedConverter" />
+                    <converters:ListViewSelectedItemSelectionChangedConverter x:Key="ListViewSelectionChangedConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </views:NavigationPage.Resources>
+
+    <Grid>
+        <Grid x:Name="ContentToPrint"
+                  Background="White"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch"
+                  Opacity="0"
+                  Margin="25">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <RichTextBlock Grid.Row="0"
+                           Style="{StaticResource RichTextBlockPrintDefaultSyle}"
+                           OverflowContentTarget="{Binding ElementName=FirstLinkedContainer}"
+                           Margin="25">
+                <Paragraph Margin="35">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum lacinia augue. Ut aliquam justo et orci sollicitudin mattis. Nullam vel venenatis ipsum, nec varius augue. Sed sollicitudin ullamcorper enim, in ullamcorper sapien elementum at. Maecenas hendrerit tincidunt mi. Fusce porttitor quam ac mi condimentum pellentesque. Nunc sed quam metus. Vestibulum dapibus, nulla eget volutpat rutrum, turpis nisl pulvinar risus, non blandit velit tortor eget velit. Quisque id placerat ligula.
+                </Paragraph>
+                <Paragraph>
+                    Mauris dapibus elit neque, nec iaculis orci pulvinar vel. Nullam a quam vehicula, porta nisl ac, feugiat felis. Morbi pharetra tortor in varius porttitor. Praesent non dapibus enim. Curabitur suscipit posuere est, in venenatis eros laoreet id. Praesent ac bibendum tellus. Donec at nunc velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse justo leo, accumsan eget mauris vel, iaculis tempus magna. Etiam pretium placerat fringilla. Aenean tempor, urna eget tincidunt ullamcorper, mauris eros venenatis nunc, quis tincidunt mauris velit sed dui. Mauris nec commodo purus. Nulla auctor euismod nisl, sit amet suscipit odio facilisis sed.
+                </Paragraph>
+                <Paragraph>
+                    Sed mattis, metus eget euismod vulputate, mi eros viverra erat, non auctor enim elit ac ligula. Donec faucibus eu diam quis consequat. Nulla ex lectus, dignissim in mauris vitae, porttitor imperdiet massa. Maecenas eget nibh id ante vehicula convallis et vitae sem. Pellentesque id ullamcorper ligula. Sed quis nisl eu purus venenatis faucibus mattis fermentum nulla. Integer maximus consectetur sapien, eu sollicitudin mi ullamcorper eget.
+                </Paragraph>
+                <Paragraph>
+                    Vivamus auctor gravida tellus, a tincidunt tellus luctus id. Vestibulum et aliquet metus. Nullam tincidunt consectetur lorem eget fermentum. Nullam massa mi, mollis vel dui vitae, scelerisque egestas felis. Morbi eget accumsan turpis. Nullam molestie, leo in pharetra fringilla, mi erat tincidunt ante, venenatis gravida ante lorem quis neque. Vivamus urna tortor, condimentum in pulvinar vitae, porttitor sed nibh. Vestibulum eu eleifend arcu. Donec accumsan erat ut molestie dignissim. Sed quis felis lacinia, interdum massa sed, dignissim nibh. Curabitur egestas quam vitae massa aliquam mollis. Pellentesque viverra suscipit elit, ac imperdiet ante lacinia non. Quisque ut mauris tempus mi blandit malesuada.
+                </Paragraph>
+                <Paragraph>
+                    Nullam nisl ante, malesuada ut dapibus vitae, consectetur vitae erat. Nulla convallis ac ipsum nec aliquet. Fusce at semper dolor, feugiat consequat purus. Maecenas vitae sagittis ex. Donec facilisis sem nec tincidunt fringilla. Nam at erat ac justo consequat gravida ac vel est. Mauris consequat pulvinar dui nec posuere. Ut efficitur, odio vitae gravida cursus, lorem massa facilisis erat, eu bibendum justo lectus ut diam.
+                </Paragraph>
+                <Paragraph>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum lacinia augue. Ut aliquam justo et orci sollicitudin mattis. Nullam vel venenatis ipsum, nec varius augue. Sed sollicitudin ullamcorper enim, in ullamcorper sapien elementum at. Maecenas hendrerit tincidunt mi. Fusce porttitor quam ac mi condimentum pellentesque. Nunc sed quam metus. Vestibulum dapibus, nulla eget volutpat rutrum, turpis nisl pulvinar risus, non blandit velit tortor eget velit. Quisque id placerat ligula.
+                </Paragraph>
+                <Paragraph>
+                    Mauris dapibus elit neque, nec iaculis orci pulvinar vel. Nullam a quam vehicula, porta nisl ac, feugiat felis. Morbi pharetra tortor in varius porttitor. Praesent non dapibus enim. Curabitur suscipit posuere est, in venenatis eros laoreet id. Praesent ac bibendum tellus. Donec at nunc velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse justo leo, accumsan eget mauris vel, iaculis tempus magna. Etiam pretium placerat fringilla. Aenean tempor, urna eget tincidunt ullamcorper, mauris eros venenatis nunc, quis tincidunt mauris velit sed dui. Mauris nec commodo purus. Nulla auctor euismod nisl, sit amet suscipit odio facilisis sed.
+                </Paragraph>
+                <Paragraph>
+                    Sed mattis, metus eget euismod vulputate, mi eros viverra erat, non auctor enim elit ac ligula. Donec faucibus eu diam quis consequat. Nulla ex lectus, dignissim in mauris vitae, porttitor imperdiet massa. Maecenas eget nibh id ante vehicula convallis et vitae sem. Pellentesque id ullamcorper ligula. Sed quis nisl eu purus venenatis faucibus mattis fermentum nulla. Integer maximus consectetur sapien, eu sollicitudin mi ullamcorper eget.
+                </Paragraph>
+                <Paragraph>
+                    Vivamus auctor gravida tellus, a tincidunt tellus luctus id. Vestibulum et aliquet metus. Nullam tincidunt consectetur lorem eget fermentum. Nullam massa mi, mollis vel dui vitae, scelerisque egestas felis. Morbi eget accumsan turpis. Nullam molestie, leo in pharetra fringilla, mi erat tincidunt ante, venenatis gravida ante lorem quis neque. Vivamus urna tortor, condimentum in pulvinar vitae, porttitor sed nibh. Vestibulum eu eleifend arcu. Donec accumsan erat ut molestie dignissim. Sed quis felis lacinia, interdum massa sed, dignissim nibh. Curabitur egestas quam vitae massa aliquam mollis. Pellentesque viverra suscipit elit, ac imperdiet ante lacinia non. Quisque ut mauris tempus mi blandit malesuada.
+                </Paragraph>
+                <Paragraph>
+                    2 Nullam nisl ante, malesuada ut dapibus vitae, consectetur vitae erat. Nulla convallis ac ipsum nec aliquet. Fusce at semper dolor, feugiat consequat purus. Maecenas vitae sagittis ex. Donec facilisis sem nec tincidunt fringilla. Nam at erat ac justo consequat gravida ac vel est. Mauris consequat pulvinar dui nec posuere. Ut efficitur, odio vitae gravida cursus, lorem massa facilisis erat, eu bibendum justo lectus ut diam.
+                </Paragraph>
+                <Paragraph>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum lacinia augue. Ut aliquam justo et orci sollicitudin mattis. Nullam vel venenatis ipsum, nec varius augue. Sed sollicitudin ullamcorper enim, in ullamcorper sapien elementum at. Maecenas hendrerit tincidunt mi. Fusce porttitor quam ac mi condimentum pellentesque. Nunc sed quam metus. Vestibulum dapibus, nulla eget volutpat rutrum, turpis nisl pulvinar risus, non blandit velit tortor eget velit. Quisque id placerat ligula.
+                </Paragraph>
+                <Paragraph>
+                    Mauris dapibus elit neque, nec iaculis orci pulvinar vel. Nullam a quam vehicula, porta nisl ac, feugiat felis. Morbi pharetra tortor in varius porttitor. Praesent non dapibus enim. Curabitur suscipit posuere est, in venenatis eros laoreet id. Praesent ac bibendum tellus. Donec at nunc velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse justo leo, accumsan eget mauris vel, iaculis tempus magna. Etiam pretium placerat fringilla. Aenean tempor, urna eget tincidunt ullamcorper, mauris eros venenatis nunc, quis tincidunt mauris velit sed dui. Mauris nec commodo purus. Nulla auctor euismod nisl, sit amet suscipit odio facilisis sed.
+                </Paragraph>
+                <Paragraph>
+                    Sed mattis, metus eget euismod vulputate, mi eros viverra erat, non auctor enim elit ac ligula. Donec faucibus eu diam quis consequat. Nulla ex lectus, dignissim in mauris vitae, porttitor imperdiet massa. Maecenas eget nibh id ante vehicula convallis et vitae sem. Pellentesque id ullamcorper ligula. Sed quis nisl eu purus venenatis faucibus mattis fermentum nulla. Integer maximus consectetur sapien, eu sollicitudin mi ullamcorper eget.
+                </Paragraph>
+                <Paragraph>
+                    Vivamus auctor gravida tellus, a tincidunt tellus luctus id. Vestibulum et aliquet metus. Nullam tincidunt consectetur lorem eget fermentum. Nullam massa mi, mollis vel dui vitae, scelerisque egestas felis. Morbi eget accumsan turpis. Nullam molestie, leo in pharetra fringilla, mi erat tincidunt ante, venenatis gravida ante lorem quis neque. Vivamus urna tortor, condimentum in pulvinar vitae, porttitor sed nibh. Vestibulum eu eleifend arcu. Donec accumsan erat ut molestie dignissim. Sed quis felis lacinia, interdum massa sed, dignissim nibh. Curabitur egestas quam vitae massa aliquam mollis. Pellentesque viverra suscipit elit, ac imperdiet ante lacinia non. Quisque ut mauris tempus mi blandit malesuada.
+                </Paragraph>
+                <Paragraph>
+                    Nullam nisl ante, malesuada ut dapibus vitae, consectetur vitae erat. Nulla convallis ac ipsum nec aliquet. Fusce at semper dolor, feugiat consequat purus. Maecenas vitae sagittis ex. Donec facilisis sem nec tincidunt fringilla. Nam at erat ac justo consequat gravida ac vel est. Mauris consequat pulvinar dui nec posuere. Ut efficitur, odio vitae gravida cursus, lorem massa facilisis erat, eu bibendum justo lectus ut diam.
+                </Paragraph>
+                <Paragraph>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum lacinia augue. Ut aliquam justo et orci sollicitudin mattis. Nullam vel venenatis ipsum, nec varius augue. Sed sollicitudin ullamcorper enim, in ullamcorper sapien elementum at. Maecenas hendrerit tincidunt mi. Fusce porttitor quam ac mi condimentum pellentesque. Nunc sed quam metus. Vestibulum dapibus, nulla eget volutpat rutrum, turpis nisl pulvinar risus, non blandit velit tortor eget velit. Quisque id placerat ligula.
+                </Paragraph>
+                <Paragraph>
+                    Mauris dapibus elit neque, nec iaculis orci pulvinar vel. Nullam a quam vehicula, porta nisl ac, feugiat felis. Morbi pharetra tortor in varius porttitor. Praesent non dapibus enim. Curabitur suscipit posuere est, in venenatis eros laoreet id. Praesent ac bibendum tellus. Donec at nunc velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse justo leo, accumsan eget mauris vel, iaculis tempus magna. Etiam pretium placerat fringilla. Aenean tempor, urna eget tincidunt ullamcorper, mauris eros venenatis nunc, quis tincidunt mauris velit sed dui. Mauris nec commodo purus. Nulla auctor euismod nisl, sit amet suscipit odio facilisis sed.
+                </Paragraph>
+                <Paragraph>
+                    Sed mattis, metus eget euismod vulputate, mi eros viverra erat, non auctor enim elit ac ligula. Donec faucibus eu diam quis consequat. Nulla ex lectus, dignissim in mauris vitae, porttitor imperdiet massa. Maecenas eget nibh id ante vehicula convallis et vitae sem. Pellentesque id ullamcorper ligula. Sed quis nisl eu purus venenatis faucibus mattis fermentum nulla. Integer maximus consectetur sapien, eu sollicitudin mi ullamcorper eget.
+                </Paragraph>
+                <Paragraph>
+                    Vivamus auctor gravida tellus, a tincidunt tellus luctus id. Vestibulum et aliquet metus. Nullam tincidunt consectetur lorem eget fermentum. Nullam massa mi, mollis vel dui vitae, scelerisque egestas felis. Morbi eget accumsan turpis. Nullam molestie, leo in pharetra fringilla, mi erat tincidunt ante, venenatis gravida ante lorem quis neque. Vivamus urna tortor, condimentum in pulvinar vitae, porttitor sed nibh. Vestibulum eu eleifend arcu. Donec accumsan erat ut molestie dignissim. Sed quis felis lacinia, interdum massa sed, dignissim nibh. Curabitur egestas quam vitae massa aliquam mollis. Pellentesque viverra suscipit elit, ac imperdiet ante lacinia non. Quisque ut mauris tempus mi blandit malesuada.
+                </Paragraph>
+                <Paragraph>
+                    3 Nullam nisl ante, malesuada ut dapibus vitae, consectetur vitae erat. Nulla convallis ac ipsum nec aliquet. Fusce at semper dolor, feugiat consequat purus. Maecenas vitae sagittis ex. Donec facilisis sem nec tincidunt fringilla. Nam at erat ac justo consequat gravida ac vel est. Mauris consequat pulvinar dui nec posuere. Ut efficitur, odio vitae gravida cursus, lorem massa facilisis erat, eu bibendum justo lectus ut diam.
+                </Paragraph>
+                <Paragraph>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum lacinia augue. Ut aliquam justo et orci sollicitudin mattis. Nullam vel venenatis ipsum, nec varius augue. Sed sollicitudin ullamcorper enim, in ullamcorper sapien elementum at. Maecenas hendrerit tincidunt mi. Fusce porttitor quam ac mi condimentum pellentesque. Nunc sed quam metus. Vestibulum dapibus, nulla eget volutpat rutrum, turpis nisl pulvinar risus, non blandit velit tortor eget velit. Quisque id placerat ligula.
+                </Paragraph>
+                <Paragraph>
+                    Mauris dapibus elit neque, nec iaculis orci pulvinar vel. Nullam a quam vehicula, porta nisl ac, feugiat felis. Morbi pharetra tortor in varius porttitor. Praesent non dapibus enim. Curabitur suscipit posuere est, in venenatis eros laoreet id. Praesent ac bibendum tellus. Donec at nunc velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse justo leo, accumsan eget mauris vel, iaculis tempus magna. Etiam pretium placerat fringilla. Aenean tempor, urna eget tincidunt ullamcorper, mauris eros venenatis nunc, quis tincidunt mauris velit sed dui. Mauris nec commodo purus. Nulla auctor euismod nisl, sit amet suscipit odio facilisis sed.
+                </Paragraph>
+                <Paragraph>
+                    Sed mattis, metus eget euismod vulputate, mi eros viverra erat, non auctor enim elit ac ligula. Donec faucibus eu diam quis consequat. Nulla ex lectus, dignissim in mauris vitae, porttitor imperdiet massa. Maecenas eget nibh id ante vehicula convallis et vitae sem. Pellentesque id ullamcorper ligula. Sed quis nisl eu purus venenatis faucibus mattis fermentum nulla. Integer maximus consectetur sapien, eu sollicitudin mi ullamcorper eget.
+                </Paragraph>
+                <Paragraph>
+                    Vivamus auctor gravida tellus, a tincidunt tellus luctus id. Vestibulum et aliquet metus. Nullam tincidunt consectetur lorem eget fermentum. Nullam massa mi, mollis vel dui vitae, scelerisque egestas felis. Morbi eget accumsan turpis. Nullam molestie, leo in pharetra fringilla, mi erat tincidunt ante, venenatis gravida ante lorem quis neque. Vivamus urna tortor, condimentum in pulvinar vitae, porttitor sed nibh. Vestibulum eu eleifend arcu. Donec accumsan erat ut molestie dignissim. Sed quis felis lacinia, interdum massa sed, dignissim nibh. Curabitur egestas quam vitae massa aliquam mollis. Pellentesque viverra suscipit elit, ac imperdiet ante lacinia non. Quisque ut mauris tempus mi blandit malesuada.
+                </Paragraph>
+                <Paragraph>
+                    Nullam nisl ante, malesuada ut dapibus vitae, consectetur vitae erat. Nulla convallis ac ipsum nec aliquet. Fusce at semper dolor, feugiat consequat purus. Maecenas vitae sagittis ex. Donec facilisis sem nec tincidunt fringilla. Nam at erat ac justo consequat gravida ac vel est. Mauris consequat pulvinar dui nec posuere. Ut efficitur, odio vitae gravida cursus, lorem massa facilisis erat, eu bibendum justo lectus ut diam.
+                </Paragraph>
+                <Paragraph>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum lacinia augue. Ut aliquam justo et orci sollicitudin mattis. Nullam vel venenatis ipsum, nec varius augue. Sed sollicitudin ullamcorper enim, in ullamcorper sapien elementum at. Maecenas hendrerit tincidunt mi. Fusce porttitor quam ac mi condimentum pellentesque. Nunc sed quam metus. Vestibulum dapibus, nulla eget volutpat rutrum, turpis nisl pulvinar risus, non blandit velit tortor eget velit. Quisque id placerat ligula.
+                </Paragraph>
+                <Paragraph>
+                    Mauris dapibus elit neque, nec iaculis orci pulvinar vel. Nullam a quam vehicula, porta nisl ac, feugiat felis. Morbi pharetra tortor in varius porttitor. Praesent non dapibus enim. Curabitur suscipit posuere est, in venenatis eros laoreet id. Praesent ac bibendum tellus. Donec at nunc velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse justo leo, accumsan eget mauris vel, iaculis tempus magna. Etiam pretium placerat fringilla. Aenean tempor, urna eget tincidunt ullamcorper, mauris eros venenatis nunc, quis tincidunt mauris velit sed dui. Mauris nec commodo purus. Nulla auctor euismod nisl, sit amet suscipit odio facilisis sed.
+                </Paragraph>
+                <Paragraph>
+                    Sed mattis, metus eget euismod vulputate, mi eros viverra erat, non auctor enim elit ac ligula. Donec faucibus eu diam quis consequat. Nulla ex lectus, dignissim in mauris vitae, porttitor imperdiet massa. Maecenas eget nibh id ante vehicula convallis et vitae sem. Pellentesque id ullamcorper ligula. Sed quis nisl eu purus venenatis faucibus mattis fermentum nulla. Integer maximus consectetur sapien, eu sollicitudin mi ullamcorper eget.
+                </Paragraph>
+                <Paragraph>
+                    Vivamus auctor gravida tellus, a tincidunt tellus luctus id. Vestibulum et aliquet metus. Nullam tincidunt consectetur lorem eget fermentum. Nullam massa mi, mollis vel dui vitae, scelerisque egestas felis. Morbi eget accumsan turpis. Nullam molestie, leo in pharetra fringilla, mi erat tincidunt ante, venenatis gravida ante lorem quis neque. Vivamus urna tortor, condimentum in pulvinar vitae, porttitor sed nibh. Vestibulum eu eleifend arcu. Donec accumsan erat ut molestie dignissim. Sed quis felis lacinia, interdum massa sed, dignissim nibh. Curabitur egestas quam vitae massa aliquam mollis. Pellentesque viverra suscipit elit, ac imperdiet ante lacinia non. Quisque ut mauris tempus mi blandit malesuada.
+                </Paragraph>
+                <Paragraph>
+                    4 Nullam nisl ante, malesuada ut dapibus vitae, consectetur vitae erat. Nulla convallis ac ipsum nec aliquet. Fusce at semper dolor, feugiat consequat purus. Maecenas vitae sagittis ex. Donec facilisis sem nec tincidunt fringilla. Nam at erat ac justo consequat gravida ac vel est. Mauris consequat pulvinar dui nec posuere. Ut efficitur, odio vitae gravida cursus, lorem massa facilisis erat, eu bibendum justo lectus ut diam.
+                </Paragraph>
+            </RichTextBlock>
+            <RichTextBlockOverflow x:Name="FirstLinkedContainer" 
+                                       Grid.Row="1"
+                                       Style="{StaticResource RichTextBlockOverflowPrintDefaultSyle}"
+                                       OverflowContentTarget="{Binding ElementName=ContinuationPageLinkedContainer}"/>
+            <RichTextBlockOverflow x:Name="ContinuationPageLinkedContainer" 
+                                       Style="{StaticResource RichTextBlockOverflowPrintDefaultSyle}"
+                                       Grid.Row="2"/>
+        </Grid>
+        <ListView x:Name="ProfilesGridView" 
+              HorizontalContentAlignment="Stretch"
+              ItemsSource="{Binding Visitors}"
+              ItemTemplate="{StaticResource FavoritesItemsTemplate}">
+            <ListView.GroupStyle>
+                <GroupStyle HidesIfEmpty="True">
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate x:DataType="guestVisitor:Visitor">
+                            <TextBlock Text="{Binding Name}" Margin="10"></TextBlock>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="SelectionChanged">
+                    <core:InvokeCommandAction Command="{Binding SelectionChangedCommand}"
+                                          InputConverter="{StaticResource ListViewSelectionChangedConverter}"
+                                          InputConverterParameter="{Binding ElementName=ProfilesGridView}"/>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </ListView>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar Height="60" 
+                    VerticalAlignment="Bottom"
+                    ClosedDisplayMode="Compact">
+            <AppBarButton Icon="Page" Label="Print" Click="OnPrintButtonClick" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</views:NavigationPage>

@@ -1,0 +1,76 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Company.Welcome.Commons.Views.Controls">
+
+    <Style TargetType="controls:AsyncValuePresenter" x:Key="DefaultAsyncValuePresenterStyle">
+        <Setter Property="LoadingDataTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <ProgressRing IsActive="true" HorizontalAlignment="Left" Height="50" Width="50"></ProgressRing>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="EmptyDataTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="No result"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ErrorDataTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:AsyncValuePresenter">
+
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Width="{TemplateBinding Width}">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="ViewModelStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.10"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="LoadingVisualState">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="LoadingTemplate_PartName"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="EmptyVisualState">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="EmptyTemplate_PartName"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ErrorVisualState">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ErrorTemplate_PartName"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ValuePresentVisualState">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentTemplate_PartName"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <ContentPresenter x:Name="ContentTemplatePartName"/>
+                            <ContentPresenter x:Name="ErrorTemplatePartName"/>
+                            <ContentPresenter x:Name="LoadingTemplatePartName"/>
+                            <ContentPresenter x:Name="EmptyTemplatePartName"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>
