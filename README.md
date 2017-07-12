@@ -9,3 +9,5 @@ AnyCPU is not supported please run this in either x64 or ARM or x82
 
 Minimum Windows version is: 10586  
 Targeted Windows version is: Anniversary Update : 14393  
+Windows previous SDKs can be downloaded here: https://developer.microsoft.com/en-us/windows/downloads/sdk-archive
+
