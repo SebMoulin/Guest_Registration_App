@@ -2,6 +2,7 @@
   "dependencies": {
     "linqtotwitter": "4.0.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.Xaml.Behaviors.Uwp.Managed": "2.0.0",
     "Unity": "4.0.1",
     "Win2D.uwp": "1.18.0"
   },
